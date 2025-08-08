@@ -1,0 +1,290 @@
+`html
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<!-- زبان فارسی و راست‌چین (RTL) برای متن‌های فارسی -->
+<head>
+    <meta charset="UTF-8"> <!-- پشتیبانی از کاراکترهای فارسی -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- ریسپانسیو بودن در موبایل -->
+    <title>پروفایل شخصی من</title>
+    <style>
+        /* تعریف متغیرهای رنگ برای استفاده آسان */
+        :root {
+            --primary-color: #6a11cb;  /* رنگ اصلی بنفش */
+            --secondary-color: #2575fc; /* رنگ دوم آبی */
+            --dark-color: #333;         /* رنگ متن تیره */
+            --light-color: #f8f9fa;    /* رنگ پس‌زمینه روشن */
+        }
+
+        /* ریست استایل‌های پیش‌فرض مرورگر */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* استایل‌های اصلی صفحه */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center; /* محور افقی وسط */
+            align-items: center;     /* محور عمودی وسط */
+            min-height: 100vh;       /* حداقل ارتفاع برابر با ارتفاع صفحه */
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 20px;
+            transition: all 0.5s ease; /* انیمیشن برای تغییر حالت شب */
+        }
+
+        /* استایل کارت پروفایل */
+        .profile-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* افکت هنگام هاور روی کارت */
+        .profile-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        /* خط رنگی بالای کارت */
+        .profile-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        }
+
+        /* استایل کانتینر عکس پروفایل */
+        .profile-img-container {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 25px; /* وسط چین و فاصله از پایین */
+        }
+        /* استایل خود عکس پروفایل */
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;  /* گرد کردن عکس */
+            object-fit: cover;   /* پر کردن فضای کانتینر بدون تغییر نسبت */
+            border: 5px solid white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        /* افکت بزرگ شدن عکس هنگام هاور */
+        .profile-img:hover {
+            transform: scale(1.05);
+        }
+
+        /* استایل نام شخص */
+        .profile-name {
+            font-size: 1.8rem;
+            color: var(--dark-color);
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        /* استایل عنوان شغلی */
+        .profile-title {
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        /* استایل بیوگرافی */
+        .profile-bio {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 25px;
+            font-size: 1rem;
+        }
+
+        /* استایل بخش شبکه‌های اجتماعی */
+        .social-section {
+            background: rgba(106, 17, 203, 0.05);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+        }
+
+        /* عنوان بخش شبکه‌های اجتماعی */
+        .social-title {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: var(--dark-color);
+            font-weight: 600;
+        }
+
+        /* کانتینر لینک‌های اجتماعی */
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px; /* فاصله بین آیتم‌ها */
+        }
+
+        /* استایل هر لینک اجتماعی */
+        .social-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--dark-color);
+            transition: all 0.3s ease;
+        }
+
+        /* افکت هنگام هاور روی لینک‌ها */
+        .social-link:hover {
+            transform: translateY(-5px);
+            color: var(--primary-color);
+        }
+
+        /* استایل آیکون‌های اجتماعی */
+        .social-icon {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+
+        /* استایل متن زیر آیکون‌ها */
+        .social-text {
+            font-size: 0.9rem;
+        }
+
+        /* استایل دکمه تماس */
+        .contact-btn {
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            font-size: 1rem;
+            width: 100%;
+            max-width: 220px;
+            box-shadow: 0 5px 15px rgba(106, 17, 203, 0.3);
+        }
+
+        /* افکت دکمه هنگام هاور */
+        .contact-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(106, 17, 203, 0.4);
+        }
+        /* دکمه تغییر حالت شب/روز */
+        .dark-mode-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--dark-color);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+        /* استایل‌های حالت شب */
+        body.dark-mode {
+            background: linear-gradient(135deg, #232526 0%, #414345 100%);
+            color: #f0f0f0;
+        }
+        body.dark-mode .profile-card {
+            background: #2c3e50;
+            color: #f0f0f0;
+        }
+        body.dark-mode .profile-name,
+        body.dark-mode .social-title {
+            color: #f0f0f0;
+        }
+        body.dark-mode .profile-bio,
+        body.dark-mode .social-text {
+            color: #ccc;
+        }
+        body.dark-mode .social-section {
+            background: rgba(255, 255, 255, 0.05);
+        }
+    </style>
+</head>
+<body>
+    <!-- دکمه تغییر حالت شب/روز -->
+    <button class="dark-mode-toggle" onclick="toggleDarkMode()">حالت شب 🌙</button>
+    <!-- کارت پروفایل اصلی -->
+    <div class="profile-card">
+        <!-- کانتینر عکس پروفایل -->
+        <div class="profile-img-container">
+            <!-- جایگزین کردن آدرس عکس خودتان -->
+            <img src="IMG_20250514_103007_957.jpg" class="profile-img" alt="عکس پروفایل">
+        </div>
+        
+        <!-- اطلاعات شخصی -->
+        <h1 class="profile-name">طاها علیزاده</h1>
+        <p class="profile-title">توسعه دهنده وب و برنامه نویس</p>
+        <p class="profile-bio">
+            
+            "من یک توسعه‌دهنده وب هستم که به طراحی و برنامه‌نویسی علاقه دارم. 
+                            در حال حاضر روی پروژه‌های مختلفی کار می‌کنمم."
+        </p>
+        
+        <!-- بخش شبکه‌های اجتماعی -->
+        <div class="social-section">
+            <h3 class="social-title">شبکه‌های اجتماعی</h3>
+            <div class="social-links">
+                <!-- لینک تلگرام - آدرس را جایگزین کنید -->
+                <a href="https://t.me/taha_alizadeh" class="social-link" target="_blank">
+                    <span class="social-icon">📱</span>
+                    <span class="social-text">تلگرام</span>
+                </a>
+                <!-- لینک اینستاگرام - آدرس را جایگزین کنید -->
+                <a href="https://instagram.com/taha_alizadeh10" class="social-link" target="_blank">
+                    <span class="social-icon">📸</span>
+                    <span class="social-text">اینستاگرام</span>
+                </a>
+                <!-- لینک گیت‌هاب - آدرس را جایگزین کنید -->
+                <a href="https://github.com/taha alizadeh" class="social-link" target="_blank">
+                    <span class="social-icon">💻</span>
+                    <span class="social-text">گیت‌هاب</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- دکمه تماس -->
+        <button class="contact-btn">ارتباط با من</button>
+    </div>
+
+    <!-- جاوااسکریپت برای تغییر حالت شب/روز -->
+    <script>
+        function toggleDarkMode() {
+            // اضافه/حذف کلاس dark-mode از body
+            document.body.classList.toggle('dark-mode');
+            
+            // تغییر متن و استایل دکمه
+            const btn = document.querySelector('.dark-mode-toggle');
+            if (document.body.classList.contains('dark-mode')) {
+                btn.textContent = 'حالت روز ☀️';
+                btn.style.background = '#f8f9fa';
+                btn.style.color = '#333';
+            } else {
+                btn.textContent = 'حالت شب 🌙';
+                btn.style.background = '#333';
+                btn.style.color = '#f8f9fa';
+            }
+        }
+    </script>
+</body>
+</html>
+`
